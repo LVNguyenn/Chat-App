@@ -3,7 +3,14 @@ import User from "../models/user.model.js";
 
 const protectRoute = async (req, res, next) => {
   try {
-    const token = req.cookies.jwt;
+    let token = req.cookies.jwt;
+    if (!token) {
+      const authHeader = req.headers.authorization;
+      if (!authHeader || !authHeader.startsWith("Bearer")) {
+        throw new UnauthenticatedError("Authentication invalid");
+      }
+      token = authHeader.split(" ")[1];
+    }
 
     if (!token) {
       return res
