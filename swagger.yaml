@@ -1,0 +1,211 @@
+openapi: 3.0.0
+info:
+  title: Chat App
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://chat-app-be-vqou.onrender.com/api
+  variables: {}
+- url: http://localhost:5000/api
+  variables: {}
+paths:
+  /auth/signup:
+    post:
+      tags:
+      - Auth
+      summary: Signup
+      operationId: Signup
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/SignupRequest'
+              - example:
+                  fullName: Vi Nguyen
+                  username: vinguyen
+                  password: '123456'
+                  confirmPassword: '123456'
+                  gender: Male
+            example:
+              fullName: Vi Nguyen
+              username: vinguyen
+              password: '123456'
+              confirmPassword: '123456'
+              gender: Male
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Login
+      operationId: Login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LoginRequest'
+              - example:
+                  username: Nguyen
+                  password: '123456'
+            example:
+              username: Nguyen
+              password: '123456'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/logout:
+    post:
+      tags:
+      - Auth
+      summary: Logout
+      operationId: Logout
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearerAuth: []
+  /users:
+    get:
+      tags:
+      - Users
+      summary: Get Users
+      operationId: GetUsers
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearerAuth: []
+  /messages/send/{userId}:
+    post:
+      tags:
+      - Messages
+      summary: Send Message
+      operationId: SendMessage
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/SendMessageRequest'
+              - example:
+                  message: Hello Nguyen
+            example:
+              message: Hello Nguyen
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearerAuth: []
+  /messages/{userId}:
+    get:
+      tags:
+      - Messages
+      summary: Get Messages
+      operationId: GetMessages
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearerAuth: []
+components:
+  schemas:
+    SignupRequest:
+      title: SignupRequest
+      required:
+      - fullName
+      - username
+      - password
+      - confirmPassword
+      - gender
+      type: object
+      properties:
+        fullName:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        confirmPassword:
+          type: string
+        gender:
+          type: string
+      example:
+        fullName: Vi Nguyen
+        username: vinguyen
+        password: '123456'
+        confirmPassword: '123456'
+        gender: Male
+    LoginRequest:
+      title: LoginRequest
+      required:
+      - username
+      - password
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      example:
+        username: Nguyen
+        password: '123456'
+    SendMessageRequest:
+      title: SendMessageRequest
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          type: string
+      example:
+        message: Hello Nguyen
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security: []
+tags:
+- name: Auth
+- name: Users
+- name: Messages
