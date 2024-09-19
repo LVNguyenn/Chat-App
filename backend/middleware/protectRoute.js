@@ -7,7 +7,9 @@ const protectRoute = async (req, res, next) => {
     if (!token) {
       const authHeader = req.headers.authorization;
       if (!authHeader || !authHeader.startsWith("Bearer")) {
-        throw new UnauthenticatedError("Authentication invalid");
+        return res
+          .status(401)
+          .json({ error: "Unauthorized - No Token Provided" });
       }
       token = authHeader.split(" ")[1];
     }
