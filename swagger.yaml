@@ -4,7 +4,7 @@ info:
   contact: {}
   version: '1.0'
 servers:
-- url: https://chat-app-be-zbsh.onrender.com/api
+- url: https://chat-app-be-vqou.onrender.com/api
   variables: {}
 - url: http://localhost:5000/api
   variables: {}
