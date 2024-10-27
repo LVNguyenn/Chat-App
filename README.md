@@ -2,7 +2,7 @@
 
 ![Demo App](https://i.postimg.cc/fyfhJ0v7/demo-chat-app.png)
 
-[Documentation use Swagger](https://chat-app-be-vqou.onrender.com/api-docs/)
+[Documentation use Swagger](https://chat-app-be-0bv8.onrender.com/api-docs/)
 
 Some Features:
 
